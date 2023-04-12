@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { SearchCardType } from '../../common/type'
+import { StreamCardType } from '../../common/type'
+import Card from './StreamCard.vue'
 import { ref } from 'vue'
 
-const test = ref<SearchCardType>({
+const test = ref<StreamCardType>({
     title: "少年少女カメレオンシンプトム",
     artist: "neru",
-    key: 0,
-    maxKey: "hihib"
 })
 
 const testArray = ref([1, 2, 3])
@@ -25,6 +24,15 @@ const testArray = ref([1, 2, 3])
         </div>
 
         <h1 class="bold text-center pt-5 text-2xl text-white">検索結果</h1>
+
+        <div class="mt-2 text-center">
+            <button class="py-2 w-1/3 border-b-2 border-gray-400 text-white">Joy</button>
+            <button class="py-2 w-1/3 border-b-2 border-gray-400 text-white">DAM</button>
+        </div>
+
+        <div class="my-2">
+            <Card v-for="i in testArray" :props-data="test" />
+        </div>
 
     </div>
 </template>

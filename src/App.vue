@@ -5,6 +5,11 @@ import StreamSearch from './components/streamSearch/StreamSearchTop.vue'
 import { ref } from 'vue'
 
 const viewType = ref<ViewType>('search')
+
+const updateViewType = (value: ViewType) => {
+  viewType.value = value;
+}
+
 </script>
 
 <template>
@@ -15,9 +20,9 @@ const viewType = ref<ViewType>('search')
       <!-- <StreamSearch /> -->
     </div>
     <div id="footer" class="absolute bottom-0 w-full">
-      <button class="w-1/3 py-5 bg-blue-500">配信検索</button>
-      <button class="w-1/3 py-5 bg-green-500">検索</button>
-      <button class="w-1/3 py-5 bg-orange-500">登録</button>
+      <button @click="updateViewType('stream')" class="w-1/3 py-5 bg-blue-500">配信検索</button>
+      <button @click="updateViewType('search')" class="w-1/3 py-5 bg-green-500">検索</button>
+      <button @click="updateViewType('register')" class="w-1/3 py-5 bg-orange-500">登録</button>
     </div>
   </div>
 </template>

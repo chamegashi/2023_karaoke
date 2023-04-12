@@ -5,4 +5,9 @@ export type SearchCardType = {
     maxKey: string,
 }
 
+export type StreamCardType = {
+    title: string,
+    artist: string,
+}
+
 export type ViewType = 'stream' | 'search' | 'register'
