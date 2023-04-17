@@ -1,25 +1,22 @@
 <script setup lang="ts">
-import { StreamCardType } from '../../common/type'
+import { StreamResponce, ModelType } from '../../common/type'
 import { getJoyData, isLoading, responce, error } from '../../api/getStreamData'
 import Card from './StreamCard.vue'
 import { ref, watch } from 'vue'
 
 const input = ref<string>("")
+const result = ref<StreamResponce>()
+const toggleModel = ref<ModelType>('Joy')
 
 const getDataOfStream = () => {
     getJoyData(input.value)
 }
 
 watch(responce, () => {
-    if (!responce) return
-
-    console.log(responce)
-})
-
-const testArray = ref([1, 2, 3])
-const test = ref<StreamCardType>({
-    title: "少年少女カメレオンシンプトム",
-    artist: "neru",
+    if (!responce.value) {
+        return
+    }
+    result.value = responce.value;
 })
 
 </script>
@@ -39,9 +36,14 @@ const test = ref<StreamCardType>({
             <button @click="getDataOfStream" class="w-1/4 py-2 text-white border border-gray-400 rounded">検索</button>
         </div>
 
-        <div class="mt-4 text-center">
-            <button class="py-2 w-1/3 border-b-2 border-gray-400 text-white">Joy</button>
-            <button class="py-2 w-1/3 border-b-2 border-gray-400 text-white">DAM</button>
+        <div v-if="toggleModel == 'Joy'" class="mt-4 text-center">
+            <button class="py-2 w-1/3 border-b-2 border-blue-500 text-blue-500">Joy</button>
+            <button @click="toggleModel = 'DAM'" class="py-2 w-1/3 border-b-2 border-gray-400 text-white">DAM</button>
+        </div>
+
+        <div v-if="toggleModel == 'DAM'" class="mt-4 text-center">
+            <button @click="toggleModel = 'Joy'" class="py-2 w-1/3 border-b-2 border-gray-400 text-white">Joy</button>
+            <button class="py-2 w-1/3 border-b-2 border-blue-500 text-blue-500">DAM</button>
         </div>
 
         <div v-if="isLoading" class="my-8">
@@ -52,9 +54,24 @@ const test = ref<StreamCardType>({
             </div>
         </div>
 
-        <div v-if="!isLoading" class="mt-4">
-            <Card v-for="i in testArray" :props-data="test" />
+        <div v-if="toggleModel === 'Joy' && !isLoading" className="h-3/5 pb-16">
+            <div v-if="responce?.joyResponce" class="mt-4 overflow-scroll h-full">
+                <Card v-for="data in responce.joyResponce" :props-data="data" />
+            </div>
+            <div v-else class="mt-4">
+                <p className="text-white text-center text-xl">配信されている曲がありません</p>
+            </div>
         </div>
+
+        <div v-if="toggleModel === 'DAM' && !isLoading" className="h-3/5 pb-16">
+            <div v-if="responce?.damResponce" class="mt-4 overflow-scroll h-full">
+                <Card v-for="data in responce.damResponce" :props-data="data" />
+            </div>
+            <div v-else class="mt-4">
+                <p className="text-white text-center text-xl">配信されている曲がありません</p>
+            </div>
+        </div>
+
 
     </div>
 </template>

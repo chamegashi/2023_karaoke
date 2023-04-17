@@ -4,7 +4,7 @@ import { SearchCardType } from '../../common/type'
 import { ref } from 'vue'
 
 const test = ref<SearchCardType>({
-    title: "少年少女カメレオンシンプトム",
+    song: "少年少女カメレオンシンプトム",
     artist: "neru",
     key: 0,
     maxKey: "hihib"

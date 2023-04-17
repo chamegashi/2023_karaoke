@@ -1,12 +1,12 @@
 export type SearchCardType = {
-    title: string,
+    song: string,
     artist: string,
     key: number,
     maxKey: string,
 }
 
-export type StreamCardType = {
-    title: string,
+export type StreamSong = {
+    song: string,
     artist: string,
 }
 
@@ -15,9 +15,5 @@ export type StreamResponce = {
     joyResponce: Array<StreamSong>,
 }
 
-export type StreamSong = {
-    artist: string,
-    song: string,
-}
-
 export type ViewType = 'stream' | 'search' | 'register'
+export type ModelType = 'Joy' | 'DAM'
