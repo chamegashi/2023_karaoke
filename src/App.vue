@@ -2,6 +2,7 @@
 import { ViewType } from './common/type'
 import Search from './components/search/SearchTop.vue'
 import StreamSearch from './components/streamSearch/StreamSearchTop.vue'
+import Regist from './components/regist/RegistTop.vue'
 import { ref } from 'vue'
 
 const viewType = ref<ViewType>('search')
@@ -17,7 +18,7 @@ const updateViewType = (value: ViewType) => {
     <div class="">
       <Search v-if="viewType === 'search'" />
       <StreamSearch v-if="viewType === 'stream'" />
-      <!-- <StreamSearch /> -->
+      <Regist v-if="viewType === 'register'" />
     </div>
     <div id="footer" class="absolute bottom-0 w-full">
       <button @click="updateViewType('stream')" class="w-1/3 py-5 bg-blue-500">配信検索</button>
