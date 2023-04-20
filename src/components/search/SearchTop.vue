@@ -1,13 +1,27 @@
 <script setup lang="ts">
-import Card from './SearchCard.vue'
-import { SearchCardType } from '../../common/type'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
-const test = ref<SearchCardType>({
-    song: "少年少女カメレオンシンプトム",
-    artist: "neru",
-    key: 0,
-    maxKey: "hihib"
+import { Music } from '../../common/type'
+import { getMusic, isLoading, responce, error } from '../../api/AccessDatabase'
+import Card from './SearchCard.vue'
+import { useStoreMusics } from '../../stores/music'
+
+const musicData = ref<Music[]>([])
+const storeMusic = useStoreMusics();
+
+if (storeMusic.musics.length > 0) {
+    musicData.value = storeMusic.musics
+} else {
+    getMusic()
+}
+
+
+watch(responce, () => {
+    if (!responce.value) {
+        return
+    }
+    musicData.value = responce.value;
+    storeMusic.musics = musicData.value
 })
 
 const testArray = ref([1, 2, 3])
@@ -27,8 +41,16 @@ const testArray = ref([1, 2, 3])
 
         <h1 class="bold text-center pt-5 text-2xl text-white">検索結果</h1>
 
-        <div class="my-2">
-            <Card v-for="i in testArray" :props-data="test" />
+        <div v-if="isLoading" class="my-8">
+            <div className="flex justify-center">
+                <div className="animate-ping h-2 w-2 bg-white rounded-full"></div>
+                <div className="animate-ping h-2 w-2 bg-white rounded-full mx-4"></div>
+                <div className="animate-ping h-2 w-2 bg-white rounded-full"></div>
+            </div>
+        </div>
+
+        <div v-if="!isLoading" class="my-2">
+            <Card v-for="music in musicData" :props-data="music" />
         </div>
 
     </div>

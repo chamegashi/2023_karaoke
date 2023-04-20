@@ -1,13 +1,23 @@
 {
-    "extends": ["eslint:recommended"],
+    "extends": [
+        "eslint:recommended"
+    ],
     "plugins": [
         "simple-import-sort"
     ],
-    "parserOptions": {},
-    "env": {"browser": true},
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2020
+    },
+    "env": {
+        "browser": true
+    },
     "globals": {},
     "rules": {
-        "indent": ["error", 2],
+        "indent": [
+            "error",
+            2
+        ],
         "simple-import-sort/imports": "error", // import 並び替え
         "simple-import-sort/exports": "error" // export 並び替え
     }
