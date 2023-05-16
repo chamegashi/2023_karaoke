@@ -10,7 +10,7 @@ export const isLoading = ref(false)
 
 export const getJoyData = (keyword: string) => {
     isLoading.value = true
-    axios.get(VITE_API_URL + 'serch?keyword=' + keyword)
+    axios.get(VITE_API_URL + 'search?keyword=' + keyword)
         .then(function (res) {
             responce.value = res.data
         })

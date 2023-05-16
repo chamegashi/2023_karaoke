@@ -3,6 +3,9 @@ import { StreamResponce, ModelType } from '../../common/type'
 import { getJoyData, isLoading, responce, error } from '../../api/getStreamData'
 import Card from './StreamCard.vue'
 import { ref, watch } from 'vue'
+import {
+    MagnifyingGlassIcon,
+} from '@heroicons/vue/24/solid'
 
 const input = ref<string>("")
 const result = ref<StreamResponce>()
@@ -23,17 +26,14 @@ watch(responce, () => {
 
 <template>
     <div class="bg-gray-700 h-screen">
-        <h1 class="bold text-center pt-10 text-6xl text-white">配信検索</h1>
-
-        <div class="pt-10">
-            <div class="w-2/3 mx-auto">
-                <p class="text-white">単語検索</p>
-                <input v-model="input" class="w-full p-1 rounded">
+        <div class="flex pt-4 mx-4 mb-3">
+            <div class="bg-white w-5/6 rounded p-1 mr-2 flex">
+                <MagnifyingGlassIcon class="h-6 w-6 text-gray-700" />
+                <input class="w-full mx-1" v-model="input" />
             </div>
-        </div>
-
-        <div class="mt-6 text-center">
-            <button @click="getDataOfStream" class="w-1/4 py-2 text-white border border-gray-400 rounded">検索</button>
+            <div class="w-1/6">
+                <button @click="getDataOfStream" class="w-full h-full text-white border border-gray-400 rounded">検索</button>
+            </div>
         </div>
 
         <div v-if="toggleModel == 'Joy'" class="mt-4 text-center">
@@ -54,7 +54,7 @@ watch(responce, () => {
             </div>
         </div>
 
-        <div v-if="toggleModel === 'Joy' && !isLoading" className="h-3/5 pb-16">
+        <div v-if="toggleModel === 'Joy' && !isLoading" className="h-4/5 pb-16">
             <div v-if="responce?.joyResponce" class="mt-4 overflow-scroll h-full">
                 <Card v-for="data in responce.joyResponce" :props-data="data" />
             </div>
@@ -63,7 +63,7 @@ watch(responce, () => {
             </div>
         </div>
 
-        <div v-if="toggleModel === 'DAM' && !isLoading" className="h-3/5 pb-16">
+        <div v-if="toggleModel === 'DAM' && !isLoading" className="h-4/5 pb-16">
             <div v-if="responce?.damResponce" class="mt-4 overflow-scroll h-full">
                 <Card v-for="data in responce.damResponce" :props-data="data" />
             </div>

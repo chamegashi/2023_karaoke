@@ -6,7 +6,7 @@ export type SearchCardType = {
 }
 
 export type StreamSong = {
-    music_name: string,
+    song: string,
     artist: string,
 }
 
@@ -26,3 +26,5 @@ export type Music = {
 
 export type ViewType = 'stream' | 'search' | 'register'
 export type ModelType = 'Joy' | 'DAM'
+export type rangeType = 'mid2' | 'hi' | 'hihi'
+export type PianoType = 'A' | 'A#' | 'B' | 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#'
